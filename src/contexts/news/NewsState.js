@@ -27,7 +27,7 @@ const NewsState = props => {
     const getNews = async () => {
         setLoading()
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=a8a72bfda167438d9ae4c523da4c7810`)
+        const res = await axios.get('https://newsapi.org/v2/top-headlines?country=ng&apiKey=a8a72bfda167438d9ae4c523da4c7810')
 
         dispatch({
             type: GET_NEWS,
