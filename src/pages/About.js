@@ -4,7 +4,7 @@ const About = () => {
     return (
         <div>
             <h4>About Jequex News</h4>
-            <p></p>
+            <p className="bg-dark text-light">This is a Nigerian news app that gives latest news</p>
         </div>
     )
 }

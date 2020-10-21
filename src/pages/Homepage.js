@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react';
-import Filter from '../components/layout/Filter';
 import NewsList from '../components/news/NewsList';
+import SingleNews from '../components/news/SingleNews';
 
 const Homepage = () => {
     return (
         <Fragment>
-            <Filter />
+            <SingleNews />
             <NewsList />
         </Fragment>
     )

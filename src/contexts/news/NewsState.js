@@ -1,35 +1,56 @@
 import React, {useReducer} from 'react';
 import axios from 'axios';
+import {v4 as uuidv4} from 'uuid';
 import NewsReducer from './newsReducer';
 import NewsContext from './newsContext';
-import { GET_NEWS } from '../types';
+import { GET_NEWS, SET_LOADING, SET_SINGLE_NEWS, CLEAR_SINGLE } from '../types';
 
 require('dotenv').config()
 
 const NewsState = props => {
     const initialState = {
-        news: []
+        news: [],
+        singleNews : null,
+        loading: false
     }
 
     const [state, dispatch] = useReducer(NewsReducer, initialState);
 
     const getNews = async () => {
-        // setLoading()
+        setLoading()
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_KEY}`)
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=${process.env.REACT_APP_KEY}`)
 
         dispatch({
             type: GET_NEWS,
-            payload: res.data.articles
+            payload: res.data.articles.map(i => ({
+                author: i.author, 
+                title:i.title, 
+                description: i.description,
+                urlToImage: i.urlToImage,
+                content: i.content,
+                id: uuidv4()
+            }))
         })
     }
+
+    const setSingle = (id) => dispatch({ type: SET_SINGLE_NEWS, payload: id })
+    
+    const clearSingle = () => dispatch({type: CLEAR_SINGLE})
+
+    const setLoading = () => dispatch({ type: SET_LOADING })
 
 
     return(
         <NewsContext.Provider
         value={{
             news: state.news,
-            getNews
+            Loading: state.loading,
+            singleNews: state.singleNews,
+                setSingle,
+            clearSingle,
+            getNews,
+            setLoading,
         }}>
             {props.children}
         </NewsContext.Provider>
