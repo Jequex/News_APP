@@ -5,7 +5,15 @@ import NewsReducer from './newsReducer';
 import NewsContext from './newsContext';
 import { GET_NEWS, SET_LOADING, SET_SINGLE_NEWS, CLEAR_SINGLE } from '../types';
 
-require('dotenv').config()
+require('dotenv').config();
+
+let key;
+
+if (process.env.NODE_ENV !== 'production') {
+    key = process.env.REACT_APP_KEY
+} else {
+    key = process.env.APP_KEY
+}
 
 const NewsState = props => {
     const initialState = {
@@ -19,7 +27,7 @@ const NewsState = props => {
     const getNews = async () => {
         setLoading()
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=${process.env.APP_KEY}`)
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=${key}`)
 
         dispatch({
             type: GET_NEWS,
