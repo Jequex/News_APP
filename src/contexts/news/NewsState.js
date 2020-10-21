@@ -19,7 +19,7 @@ const NewsState = props => {
     const getNews = async () => {
         setLoading()
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=${process.env.REACT_APP_KEY}`)
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=ng&apiKey=${process.env.APP_KEY}`)
 
         dispatch({
             type: GET_NEWS,
